@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy Birthday Sinthi 🎉</title>
+
+<style>
+body {
+  margin: 0;
+  font-family: 'Segoe UI', sans-serif;
+  background: black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  color: #fff;
+  text-align: center;
+  overflow: hidden;
+}
+
+/* Loader */
+.loader {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  z-index: 10;
+}
+
+.loader h2 {
+  animation: blink 1s infinite;
+}
+
+@keyframes blink {
+  50% {opacity: 0.3}
+}
+
+/* Card */
+.card {
+  display: none;
+  background: rgba(0,0,0,0.6);
+  padding: 40px;
+  border-radius: 25px;
+  box-shadow: 0 15px 40px rgba(0,0,0,0.4);
+  backdrop-filter: blur(6px);
+  max-width: 360px;
+}
+
+/* Button */
+.btn {
+  margin-top: 20px;
+  padding: 12px 25px;
+  border: none;
+  border-radius: 15px;
+  background: #ff4d6d;
+  color: white;
+  cursor: pointer;
+}
+
+/* Hearts */
+.hearts {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.heart {
+  position: absolute;
+  color: pink;
+  animation: float 5s linear infinite;
+}
+
+@keyframes float {
+  from { transform: translateY(100vh); opacity: 1; }
+  to { transform: translateY(-10vh); opacity: 0; }
+}
+
+/* Fireworks */
+#fireworks {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+</style>
+</head>
+
+<body>
+
+<!-- Loader -->
+<div class="loader" id="loader">
+  <h2>Preparing Something Special... 💖</h2>
+  <p>Do not open before 12 May 😏</p>
+</div>
+
+<canvas id="fireworks"></canvas>
+<div class="hearts" id="hearts"></div>
+
+<!-- Main Card -->
+<div class="card" id="card">
+  <h1>🎂 Happy Birthday Sinthi 🎂</h1>
+
+  <p>Sinthi, tumi amar life er sobcheye special manus ❤️</p>
+  <p>Tomar birthday ta hok onek bhalobasha ar happiness diye bhora ✨</p>
+
+  <button class="btn" onclick="showMessage()">Open Surprise 🎁</button>
+
+  <p id="msg" style="display:none; margin-top:15px;">
+    💖 Ami tomake onek bhalobashi Sinthi...
+  </p>
+</div>
+
+<!-- Music -->
+<audio autoplay loop>
+  <source src="https://www.bensound.com/bensound-music/bensound-romantic.mp3">
+</audio>
+
+<script>
+// Loader
+setTimeout(() => {
+  document.getElementById('loader').style.display = 'none';
+  document.getElementById('card').style.display = 'block';
+}, 4000);
+
+// Message
+function showMessage(){
+  document.getElementById('msg').style.display = 'block';
+}
+
+// Hearts
+const heartsContainer = document.getElementById('hearts');
+
+setInterval(() => {
+  const heart = document.createElement('div');
+  heart.classList.add('heart');
+  heart.innerHTML = '💖';
+  heart.style.left = Math.random() * 100 + 'vw';
+  heart.style.fontSize = (Math.random() * 20 + 10) + 'px';
+  heartsContainer.appendChild(heart);
+
+  setTimeout(() => heart.remove(), 5000);
+}, 300);
+
+// Fireworks
+const canvas = document.getElementById('fireworks');
+const ctx = canvas.getContext('2d');
+
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+function firework(){
+  ctx.fillStyle = 'rgba(0,0,0,0.2)';
+  ctx.fillRect(0,0,canvas.width,canvas.height);
+
+  for(let i=0;i<5;i++){
+    ctx.beginPath();
+    ctx.arc(
+      Math.random()*canvas.width,
+      Math.random()*canvas.height,
+      Math.random()*3,
+      0,
+      Math.PI*2
+    );
+    ctx.fillStyle = 'white';
+    ctx.fill();
+  }
+}
+
+setInterval(firework,100);
+</script>
+
+</body>
+</html>
